@@ -16,8 +16,8 @@ exports.ProductService = void 0;
 const product_model_1 = __importDefault(require("./product.model"));
 const createProduct = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     const product = new product_model_1.default(payload);
-    yield product.save();
-    return product;
+    const result = yield product.save();
+    return result;
 });
 exports.ProductService = {
     createProduct

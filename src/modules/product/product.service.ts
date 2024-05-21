@@ -5,10 +5,10 @@ import Product from "./product.model";
 
 const createProduct = async (payload: TProduct) => {
     const product = new Product(payload);
-    await product.save();
+    const result = await product.save();
 
 
-    return product;
+    return result;
 }
 export const ProductService = {
 

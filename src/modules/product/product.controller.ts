@@ -9,11 +9,13 @@ const createProduct = async (req: Request, res: Response) => {
 
 
 
+
     try {
+
         res.status(200).send({
             success: true,
             message: "Product created successfully!",
-            data: Product
+            data: result
         });
     } catch (error) {
         res.status(400).send({
@@ -22,6 +24,7 @@ const createProduct = async (req: Request, res: Response) => {
 
         });
     }
+
 
 }
 
