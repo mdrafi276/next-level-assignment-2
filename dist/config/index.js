@@ -6,6 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 exports.default = {
-    PORT: process.env.PORT || 3000,
-    DB_URL: process.env.DB_URL || 'mongodb://localhost:27017/next-level',
+    PORT: process.env.PORT,
+    DB_URL: process.env.DB_URL
 };
