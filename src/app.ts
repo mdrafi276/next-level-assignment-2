@@ -1,12 +1,25 @@
 import express, { Request, Response } from 'express'
+// import cors from 'cors';
+
 import { ProductRouter } from './modules/product/product.route'
 const app = express()
 app.use(express.json())
-0
+
+// app.use(cors());
+
+app.use('/api/products', ProductRouter)
 app.use('/api/products', ProductRouter)
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('Hello World...........!')
+  res.send('Server is running...')
 })
+
+app.use('*', (req, res) => {
+  res.status(404).json({
+    success: false,
+    message: 'Route not found!',
+    status: 404,
+  });
+});
 
 export default app

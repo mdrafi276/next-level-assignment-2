@@ -19,6 +19,16 @@ const createProduct = (payload) => __awaiter(void 0, void 0, void 0, function* (
     const result = yield product.save();
     return result;
 });
+const getAllProduct = (query) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield product_model_1.default.find(query);
+    return result;
+});
+const getProductById = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield product_model_1.default.findOne({ _id: id });
+    return result;
+});
 exports.ProductService = {
-    createProduct
+    createProduct,
+    getAllProduct,
+    getProductById
 };
