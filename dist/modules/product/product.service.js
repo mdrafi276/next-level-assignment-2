@@ -32,9 +32,14 @@ const updateProduct = (id, payload) => __awaiter(void 0, void 0, void 0, functio
     const result = yield product_model_1.default.findByIdAndUpdate({ _id: id }, { $set: updateData }, { new: true });
     return result;
 });
+const deleteProduct = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield product_model_1.default.findByIdAndDelete({ _id: id });
+    return result;
+});
 exports.ProductService = {
     createProduct,
     getAllProduct,
     getProductById,
-    updateProduct
+    updateProduct,
+    deleteProduct
 };

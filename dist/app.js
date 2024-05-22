@@ -10,7 +10,7 @@ const app = (0, express_1.default)();
 app.use(express_1.default.json());
 // app.use(cors());
 app.use('/api/products', product_route_1.ProductRouter);
-app.use('/api/products', product_route_1.ProductRouter);
+app.use('/api/orders', OrderRoutes);
 app.get('/', (req, res) => {
     res.send('Server is running...');
 });

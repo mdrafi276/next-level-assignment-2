@@ -114,9 +114,29 @@ const updateProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         });
     }
 });
+// delete
+const deleteProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const id = req.params.productId;
+        const result = yield product_service_1.ProductService.deleteProduct(id);
+        res.status(200).json({
+            success: true,
+            message: 'Product deleted successfully!',
+            data: null,
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            success: false,
+            message: (error === null || error === void 0 ? void 0 : error.message) || 'Something went wrong',
+            error: error,
+        });
+    }
+});
 exports.productControllers = {
     createProduct,
     getAllProduct,
     getProductById,
-    updateProduct
+    updateProduct,
+    deleteProduct
 };
