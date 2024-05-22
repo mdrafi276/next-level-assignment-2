@@ -20,10 +20,24 @@ const getProductById = async (id: string) => {
     const result = await Product.findOne({ _id: id });
     return result;
 };
+
+const updateProduct = async (
+    id: string,
+    payload: TProduct,
+) => {
+    const updateData = payload;
+    const result = await Product.findByIdAndUpdate(
+        { _id: id },
+        { $set: updateData },
+        { new: true },
+    );
+    return result;
+};
 export const ProductService = {
 
     createProduct,
     getAllProduct,
-    getProductById
+    getProductById,
+    updateProduct
 
 }

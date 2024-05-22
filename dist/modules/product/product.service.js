@@ -27,8 +27,14 @@ const getProductById = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield product_model_1.default.findOne({ _id: id });
     return result;
 });
+const updateProduct = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const updateData = payload;
+    const result = yield product_model_1.default.findByIdAndUpdate({ _id: id }, { $set: updateData }, { new: true });
+    return result;
+});
 exports.ProductService = {
     createProduct,
     getAllProduct,
-    getProductById
+    getProductById,
+    updateProduct
 };

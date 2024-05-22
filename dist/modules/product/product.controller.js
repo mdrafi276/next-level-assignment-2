@@ -11,10 +11,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.productControllers = void 0;
 const product_service_1 = require("./product.service");
+const product_validation_1 = require("./product.validation");
 const createProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const productData = req.body;
-        const result = yield product_service_1.ProductService.createProduct(productData);
+        const zodParsedData = product_validation_1.productValidationSchema.parse(req.body);
+        const result = yield product_service_1.ProductService.createProduct(zodParsedData);
         console.log("result:", result);
         res.status(200).send({
             success: true,
@@ -93,8 +94,29 @@ const getProductById = (req, res) => __awaiter(void 0, void 0, void 0, function*
         });
     }
 });
+const updateProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const id = req.params.productId;
+        const updatedData = req.body;
+        const zodData = product_validation_1.productValidationSchema.parse(updatedData);
+        const result = yield product_service_1.ProductService.updateProduct(id, zodData);
+        res.status(200).json({
+            success: true,
+            message: 'Product updated successfully!',
+            data: result,
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            success: false,
+            message: (error === null || error === void 0 ? void 0 : error.message) || 'Something went wrong',
+            error: error,
+        });
+    }
+});
 exports.productControllers = {
     createProduct,
     getAllProduct,
-    getProductById
+    getProductById,
+    updateProduct
 };
