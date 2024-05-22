@@ -12,10 +12,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.productControllers = void 0;
 const product_service_1 = require("./product.service");
 const createProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const productData = req.body;
-    const result = yield product_service_1.ProductService.createProduct(productData);
-    console.log("result:", result);
     try {
+        const productData = req.body;
+        const result = yield product_service_1.ProductService.createProduct(productData);
+        console.log("result:", result);
         res.status(200).send({
             success: true,
             message: "Product created successfully!",
@@ -32,13 +32,35 @@ const createProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
 });
 const getAllProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        let query = {};
-        const result = product_service_1.ProductService.getAllProduct(query);
-        res.status(200).send({
-            success: true,
-            message: "Products fetched successfully!",
-            data: result
-        });
+        const query = {};
+        const search = req.query.searchTerm;
+        if (search) {
+            query.$or = [
+                { name: { $regex: search, $options: 'i' } },
+                { description: { $regex: search, $options: 'i' } },
+                { category: { $regex: search, $options: 'i' } },
+            ];
+        }
+        ;
+        const result = yield product_service_1.ProductService.getAllProduct(query);
+        if (result.length === 0 || !result) {
+            res.status(404).json({ success: false, message: 'Product not found' });
+            return;
+        }
+        if (search) {
+            res.status(200).json({
+                success: true,
+                message: `Products matching search term '${search}' fetched successfully!`,
+                data: result,
+            });
+        }
+        else {
+            res.status(200).json({
+                success: true,
+                message: 'Products fetched successfully!',
+                data: result,
+            });
+        }
     }
     catch (err) {
         res.status(400).json({

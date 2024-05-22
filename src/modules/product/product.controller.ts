@@ -4,11 +4,12 @@ import { ProductService } from "./product.service";
 
 const createProduct = async (req: Request, res: Response) => {
 
-    const productData = req.body
-    const result = await ProductService.createProduct(productData)
-    console.log("result:", result);
-
     try {
+        const productData = req.body
+        const result = await ProductService.createProduct(productData)
+        console.log("result:", result);
+
+
 
         res.status(200).send({
             success: true,
@@ -28,14 +29,39 @@ const createProduct = async (req: Request, res: Response) => {
 
 const getAllProduct = async (req: Request, res: Response) => {
     try {
-        let query: any = {};
-        const result = ProductService.getAllProduct(query);
+        const query: any = {};
+        const search = req.query.searchTerm;
 
-        res.status(200).send({
-            success: true,
-            message: "Products fetched successfully!",
-            data: result
-        })
+        if (search) {
+            query.$or = [
+                { name: { $regex: search, $options: 'i' } },
+                { description: { $regex: search, $options: 'i' } },
+                { category: { $regex: search, $options: 'i' } },
+            ];
+        };
+        const result = await ProductService.getAllProduct(query);
+
+        if (result.length === 0 || !result) {
+            res.status(404).json({ success: false, message: 'Product not found' });
+            return;
+        }
+
+        if (search) {
+
+
+            res.status(200).json({
+                success: true,
+                message: `Products matching search term '${search}' fetched successfully!`,
+                data: result,
+            });
+        } else {
+            res.status(200).json({
+                success: true,
+                message: 'Products fetched successfully!',
+                data: result,
+            });
+        }
+
 
 
     } catch (err: any) {
