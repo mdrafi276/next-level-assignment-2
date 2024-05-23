@@ -17,8 +17,6 @@ const app_1 = __importDefault(require("./app"));
 const config_1 = __importDefault(require("./config"));
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
-        // next-assignment-two
-        // Pt0zjbTm0Os8MxXP
         try {
             yield mongoose_1.default.connect(config_1.default.DB_URL);
             const port = config_1.default.PORT;

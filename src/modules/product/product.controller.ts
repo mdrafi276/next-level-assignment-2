@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import Product from "./product.model";
 import { ProductService } from "./product.service";
 import { productValidationSchema } from "./product.validation";
 

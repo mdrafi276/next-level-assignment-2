@@ -4,8 +4,7 @@ import config from "./config";
 
 async function main() {
 
-    // next-assignment-two
-    // Pt0zjbTm0Os8MxXP
+
 
     try {
         await mongoose.connect(config.DB_URL as string)
