@@ -16,7 +16,6 @@ const createProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     try {
         const zodParsedData = product_validation_1.productValidationSchema.parse(req.body);
         const result = yield product_service_1.ProductService.createProduct(zodParsedData);
-        console.log("result:", result);
         res.status(200).send({
             success: true,
             message: "Product created successfully!",

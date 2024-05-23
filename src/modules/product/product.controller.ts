@@ -8,7 +8,6 @@ const createProduct = async (req: Request, res: Response) => {
     try {
         const zodParsedData = productValidationSchema.parse(req.body);
         const result = await ProductService.createProduct(zodParsedData)
-        console.log("result:", result);
 
 
 
